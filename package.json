@@ -1,0 +1,10 @@
+{
+  "name": "merge-bump-release",
+  "version": "0.0.1",
+  "description": "GitHub Action to bump SemVer and then create a Release ",
+  "main": "index.js",
+  "repository": "git@github.com:amiiit/merge-bump-release.git",
+  "author": "Amit Jakubowicz <amit.jakubowicz@ultimate.ai>",
+  "license": "MIT",
+  "private": false
+}
