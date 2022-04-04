@@ -1,0 +1,23 @@
+name: Merged PR to main branch
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  release:
+    name: Release merged PR
+    # this workflow sets the author of a release as the github-actions user
+    # which prevents further workflows to trigger. So disabling for the moment.
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Run action
+        uses: ./action.yml
+        with:
+          foo: 'hello'

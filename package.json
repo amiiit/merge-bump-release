@@ -6,5 +6,17 @@
   "repository": "git@github.com:amiiit/merge-bump-release.git",
   "author": "Amit Jakubowicz <amit.jakubowicz@ultimate.ai>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "scripts": {
+    "build": "ncc build src/index.ts -o dist"
+  },
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.23",
+    "@vercel/ncc": "^0.33.3",
+    "typescript": "^4.6.3"
+  }
 }

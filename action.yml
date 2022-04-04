@@ -1,0 +1,16 @@
+name: 'merge-bump-release'
+description: 'GitHub action to be applied on merged pull-request, to bump a semver and create a new release'
+inputs:
+  github_token:
+    description: 'Secret GitHub token '
+    required: true
+  foo:
+    description: 'test'
+    required: false
+
+outputs:
+  nextVersion: # id of output
+    description: 'The next version'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
