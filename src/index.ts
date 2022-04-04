@@ -1,15 +1,9 @@
-import core from '@actions/core'
+import { setFailed } from '@actions/core'
 import github from '@actions/github'
 
 try {
-    const nameToGreet = core.getInput('who-to-greet');
-    console.log(`Hello ${nameToGreet}!`);
-    const time = (new Date()).toTimeString();
-    core.setOutput("time", time);
-    console.log('foo', core.getInput('foo'))
-    // Get the JSON webhook payload for the event that triggered the workflow
-    const payload = JSON.stringify(github.context.payload, undefined, 2)
-    console.log(`The event payload: ${payload}`);
+    const pr = github.context.payload.pull_request;
+    console.log(JSON.stringify(pr, null, '\t'))
 } catch (error: any) {
-    core.setFailed(error.message);
+    setFailed(error.message);
 }
