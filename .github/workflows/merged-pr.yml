@@ -4,18 +4,15 @@ on:
   pull_request:
     types:
       - closed
+      - synchronize
 jobs:
   release:
-    name: Release merged PR
-    # this workflow sets the author of a release as the github-actions user
-    # which prevents further workflows to trigger. So disabling for the moment.
-    if: github.event.pull_request.merged == true
+    name: PR
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-
       - name: Run action
         uses: amiiit/merge-bump-release@v0.1
         with:
