@@ -4,7 +4,6 @@ on:
   pull_request:
     types:
       - closed
-
 jobs:
   release:
     name: Release merged PR
