@@ -1,4 +1,4 @@
-name: Merged PR to main branch
+name: Opened and updated PR
 
 on:
   pull_request:
