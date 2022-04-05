@@ -4,13 +4,18 @@ inputs:
   github_token:
     description: 'Secret GitHub token '
     required: true
-  foo:
-    description: 'test'
+  bump:
+    description: 'Minor, major, or patch'
+    default: 'patch'
+    required: false
+  release_notes:
+    description: 'Entry for the body of the release'
     required: false
 
 outputs:
   nextVersion: # id of output
     description: 'The next version'
+
 runs:
   using: 'node16'
   main: 'dist/index.js'
