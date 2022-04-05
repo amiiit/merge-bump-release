@@ -3,7 +3,7 @@ name: Merged PR to main branch
 on:
   pull_request:
     types:
-      - synchronize
+      - closed
 jobs:
   release:
     name: PR
