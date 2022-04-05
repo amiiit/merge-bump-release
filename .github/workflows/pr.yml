@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: debug pr
-        run: echo "${toJson(github.context.pull_request)}"
+        run: echo {{toJson(github.context.pull_request)}}
       - name: Run action
         uses: amiiit/merge-bump-release@v0.1.2
         with:
