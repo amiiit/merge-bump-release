@@ -8,7 +8,6 @@ try {
     setFailed(error.message);
 }
 
-
 // example for merged pr
 const mergedPr = {
     "_links": {
