@@ -8,7 +8,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "ncc build src/index.ts -d -o dist"
+    "build": "ncc build src/index.ts -d -o dist",
+    "dev": "ncc build src/index.ts -d -w -o dist"
   },
   "dependencies": {
     "@actions/core": "^1.6.0",
