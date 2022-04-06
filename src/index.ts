@@ -30,7 +30,7 @@ const start = async () => {
             repoOwner: github.context.repo.owner,
             prNumber: github.context.payload.pull_request?.number
         })
-        console.log('commit message from gql', commitMessage)
+        console.log('commit message from gql', JSON.stringify(commitMessage, null,'\t'))
     } catch (error: any) {
         core.setFailed(error.message);
     }
