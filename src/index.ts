@@ -3,7 +3,7 @@ import github from '@actions/github'
 
 try {
     // const pr = github.context.payload.pull_request;
-    console.log('hello from index.ts')
+    console.log('hello from index.ts!')
     console.log(JSON.stringify(github, null, '\t'))
 } catch (error: any) {
     setFailed(error.message);
