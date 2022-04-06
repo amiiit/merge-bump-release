@@ -2,15 +2,8 @@ name: 'merge-bump-release'
 description: 'GitHub action to be applied on merged pull-request, to bump a semver and create a new release'
 inputs:
   github_token:
-    description: 'Secret GitHub token '
+    description: 'Secret GitHub token'
     required: true
-  bump:
-    description: 'Minor, major, or patch'
-    default: 'patch'
-    required: false
-  release_notes:
-    description: 'Entry for the body of the release'
-    required: false
 
 outputs:
   nextVersion: # id of output

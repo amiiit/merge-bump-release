@@ -16,4 +16,4 @@ jobs:
       - name: Run action
         uses: amiiit/merge-bump-release@v0.1.8
         with:
-          foo: 'hello'
+          github_token: ${{ secrets.GITHUB_TOKEN  }}
