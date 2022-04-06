@@ -23,14 +23,12 @@ const start = async () => {
     try {
         const octokit = github.getOctokit(core.getInput('github_token'))
         const pr = github.context.payload.pull_request as typeof pr1
-
-        console.log('github.context.payload.pull_request', JSON.stringify(github.context.payload.pull_request, null, '\t'))
-        const fullPRResponse = await octokit.rest.pulls.get({
-            pull_number: pr.number,
-            repo: github.context.repo.repo,
-            owner: github.context.repo.owner,
-        })
-
+        // const fullPRResponse = await octokit.rest.pulls.get({
+        //     pull_number: pr.number,
+        //     repo: github.context.repo.repo,
+        //     owner: github.context.repo.owner,
+        // })
+        //
         const commitMessage = await octokit.graphql(gqlQuery, {
             repoName: github.context.repo.repo,
             repoOwner: github.context.repo.owner,
