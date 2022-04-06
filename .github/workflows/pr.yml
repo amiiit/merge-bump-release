@@ -16,4 +16,4 @@ jobs:
       - name: Run action
         uses: amiiit/merge-bump-release@v0.1.4
         with:
-          foo: 'hello..'
+          foo: 'hello'
