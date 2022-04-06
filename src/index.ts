@@ -5,6 +5,8 @@ try {
     // const pr = github.context.payload.pull_request;
     console.log('hello from index.ts!')
     console.log(JSON.stringify(github, null, '\t'))
+    console.log('github.context', JSON.stringify(github.context, null, '\t'))
+    console.log('github.context.payload', JSON.stringify(github.context.payload, null, '\t'))
 } catch (error: any) {
     setFailed(error.message);
 }
