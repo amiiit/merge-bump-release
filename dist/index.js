@@ -8330,21 +8330,24 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
-try {
-    const octokit = github.getOctokit(core.getInput('github_token'));
-    const pr = github.context.payload.pull_request;
-    github.context.repo;
-    console.log('github.context.payload.pull_request', JSON.stringify(github.context.payload.pull_request, null, '\t'));
-    const fullPullRequest = octokit.rest.pulls.get({
-        pull_number: pr.number,
-        repo: github.context.repo.repo,
-        owner: github.context.repo.owner,
-    });
-    console.log('fullPullRequest', fullPullRequest);
-}
-catch (error) {
-    core.setFailed(error.message);
-}
+const start = async () => {
+    try {
+        const octokit = github.getOctokit(core.getInput('github_token'));
+        const pr = github.context.payload.pull_request;
+        github.context.repo;
+        console.log('github.context.payload.pull_request', JSON.stringify(github.context.payload.pull_request, null, '\t'));
+        const fullPullRequest = await octokit.rest.pulls.get({
+            pull_number: pr.number,
+            repo: github.context.repo.repo,
+            owner: github.context.repo.owner,
+        });
+        console.log('fullPullRequest', fullPullRequest);
+    }
+    catch (error) {
+        core.setFailed(error.message);
+    }
+};
+start();
 const pr1 = {
     "_links": {
         "comments": {
