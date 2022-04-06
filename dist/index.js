@@ -8312,7 +8312,10 @@ const core_1 = __nccwpck_require__(2186);
 const github_1 = __importDefault(__nccwpck_require__(5438));
 try {
     // const pr = github.context.payload.pull_request;
+    console.log('hello from index.ts!');
     console.log(JSON.stringify(github_1.default, null, '\t'));
+    console.log('github.context', JSON.stringify(github_1.default.context, null, '\t'));
+    console.log('github.context.payload', JSON.stringify(github_1.default.context.payload, null, '\t'));
 }
 catch (error) {
     (0, core_1.setFailed)(error.message);
