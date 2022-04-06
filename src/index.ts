@@ -3,7 +3,7 @@ import * as github from '@actions/github'
 
 
 const gqlQuery = `
-query {
+query GetCommitMessageFromRepository($repoName: String!, $repoOwner: String!, $prNumber: Int!) {
   repository(name: $repoName, owner: $repoOwner) {
     pullRequest(number: $prNumber) {
       labels {

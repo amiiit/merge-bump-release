@@ -8331,7 +8331,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
 const gqlQuery = `
-query {
+query GetCommitMessageFromRepository($repoName: String!, $repoOwner: String!, $prNumber: Int!) {
   repository(name: $repoName, owner: $repoOwner) {
     pullRequest(number: $prNumber) {
       labels {
