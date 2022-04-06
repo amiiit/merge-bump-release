@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 
+
 const gqlQuery = `
 query {
   repository(name: $repoName, owner: $repoOwner) {
