@@ -8330,18 +8330,40 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const github = __importStar(__nccwpck_require__(5438));
+const gqlQuery = `
+query {
+  repository(name: $repoName, owner: $repoOwner) {
+    pullRequest(number: $prNumber) {
+      labels {
+        nodes {
+          name
+        }
+      }
+      mergeCommit {
+        message
+        messageBody
+        messageBodyHTML
+      }
+    }
+  }
+}
+`;
 const start = async () => {
     try {
         const octokit = github.getOctokit(core.getInput('github_token'));
         const pr = github.context.payload.pull_request;
-        github.context.repo;
         console.log('github.context.payload.pull_request', JSON.stringify(github.context.payload.pull_request, null, '\t'));
-        const fullPullRequest = await octokit.rest.pulls.get({
+        const fullPRResponse = await octokit.rest.pulls.get({
             pull_number: pr.number,
             repo: github.context.repo.repo,
             owner: github.context.repo.owner,
         });
-        console.log('fullPullRequest', fullPullRequest);
+        const commitMessage = await octokit.graphql(gqlQuery, {
+            repoName: github.context.repo.repo,
+            repoOwner: github.context.repo.owner,
+            prNumber: github.context.payload.pull_request?.number
+        });
+        console.log('commit message from gql', commitMessage);
     }
     catch (error) {
         core.setFailed(error.message);
