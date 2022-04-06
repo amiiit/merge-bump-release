@@ -6,11 +6,6 @@ const gqlQuery = `
 query GetCommitMessageFromRepository($repoName: String!, $repoOwner: String!, $prNumber: Int!) {
   repository(name: $repoName, owner: $repoOwner) {
     pullRequest(number: $prNumber) {
-      labels {
-        nodes {
-          name
-        }
-      }
       mergeCommit {
         message
         messageBody
