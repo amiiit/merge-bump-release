@@ -14,6 +14,6 @@ jobs:
         with:
           fetch-depth: 0
       - name: Run action
-        uses: amiiit/merge-bump-release@v0.1.6
+        uses: amiiit/merge-bump-release@v0.1.7
         with:
           foo: 'hello'
