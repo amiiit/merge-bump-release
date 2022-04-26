@@ -15,6 +15,7 @@ const commitMessageQuery = gql`
         }
     }
 `
+
 type CommitMessageQueryResponse = {
     repository: {
         pullRequest: {
