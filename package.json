@@ -10,18 +10,18 @@
   "scripts": {
     "build": "ncc build src/index.ts -d -o dist",
     "dev": "ncc build src/index.ts -d -w -o dist",
-    "codegen":  "apollo client:codegen gen/queries.d.ts"
+    "codegen": "apollo client:codegen gen/queries.d.ts"
   },
   "dependencies": {
     "@actions/core": "^1.6.0",
     "@actions/github": "^5.0.0",
     "@octokit/graphql": "^4.8.0",
+    "graphql": "^16.5.0",
     "graphql-tag": "^2.12.6"
   },
   "devDependencies": {
     "@types/node": "^17.0.23",
     "@vercel/ncc": "^0.33.3",
-    "typescript": "^4.6.3",
-    "@types/jest": ""
+    "typescript": "^4.6.3"
   }
 }
