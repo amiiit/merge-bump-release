@@ -1,20 +1,7 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import gql from 'graphql-tag'
-
-const commitMessageQuery = gql`
-    query GetCommitMessageFromRepository($repoName: String!, $repoOwner: String!, $prNumber: Int!) {
-        repository(name: $repoName, owner: $repoOwner) {
-            pullRequest(number: $prNumber) {
-                mergeCommit {
-                    message
-                    messageBody
-                    messageBodyHTML
-                }
-            }
-        }
-    }
-`
+import commitMessageQuery from 'inline!./src/GetCommitMessageFromRepository.query.graphql'
+import lastReleaseQuery from 'inline!./src/GetLastReleaseQuery.query.graphql'
 
 type CommitMessageQueryResponse = {
     repository: {
@@ -28,19 +15,6 @@ type CommitMessageQueryResponse = {
     }
 }
 
-const lastReleaseQuery = gql`
-    query GetLastReleaseQuery($repoName: String!, $repoOwner: String!) {
-        repository(name: $repoName, owner: $repoOwner) {
-            latestRelease {
-                tag {
-                    id
-                    name
-                    prefix
-                }
-            }
-        }
-    }
-`
 type LatestReleaseQueryResponse = {
     repository: {
         latestRelease: {

@@ -1,0 +1,11 @@
+query GetLastReleaseQuery($repoName: String!, $repoOwner: String!) {
+    repository(name: $repoName, owner: $repoOwner) {
+        latestRelease {
+            tag {
+                id
+                name
+                prefix
+            }
+        }
+    }
+}
