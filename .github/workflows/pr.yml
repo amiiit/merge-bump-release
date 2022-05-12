@@ -5,6 +5,7 @@ on:
     types:
       - closed
 
+
 jobs:
   release:
     name: PR
