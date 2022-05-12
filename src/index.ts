@@ -1,10 +1,5 @@
 const core = require('@actions/core')
 const github = require('@actions/github');
-// import * as core from '@actions/core'
-// import * as github from '@actions/github'
-
-// import { getInput, setFailed } from '@actions/core'
-
 
 import commitMessageQuery from 'inline!./src/GetCommitMessageFromRepository.query.graphql'
 import lastReleaseQuery from 'inline!./src/GetLastReleaseQuery.query.graphql'

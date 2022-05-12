@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "rollup --config ./rollup.config.js ./src/index.ts",
+    "build": "rollup --config ./rollup.config.js ./src/index.ts --file dist/index.js --format cjs",
     "dev": "",
     "codegen": "apollo client:codegen gen/queries.d.ts"
   },
@@ -20,7 +20,6 @@
     "graphql-tag": "^2.12.6"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.2",
     "@types/jest": "^27.5.0",
