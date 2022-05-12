@@ -1,0 +1,11 @@
+query GetCommitMessageFromRepository($repoName: String!, $repoOwner: String!, $prNumber: Int!) {
+    repository(name: $repoName, owner: $repoOwner) {
+        pullRequest(number: $prNumber) {
+            mergeCommit {
+                message
+                messageBody
+                messageBodyHTML
+            }
+        }
+    }
+}
