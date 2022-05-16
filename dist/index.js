@@ -8771,6 +8771,27 @@ var __webpack_exports__ = {};
 "use strict";
 
 
+const bump = (version, bump) => {
+    const cleanVersionMatcher = version.match(/.*(\d+\.\d+\.\d+).*/);
+    if (cleanVersionMatcher == null || cleanVersionMatcher[1] === null) {
+        throw new Error(`invalid semver: ${version}`);
+    }
+    const cleanVersion = cleanVersionMatcher[1];
+    const parts = cleanVersion.split('.').map((p) => parseInt(p));
+    if (bump === 'patch') {
+        parts[2]++;
+    }
+    else if (bump === 'minor') {
+        parts[1]++;
+        parts[2] = 0;
+    }
+    else if (bump === 'major') {
+        parts[0]++;
+        parts[1] = parts[2] = 0;
+    }
+    return parts.join('.');
+};
+
 var commitMessageQuery = "query GetCommitMessageFromRepository($repoName: String!, $repoOwner: String!, $prNumber: Int!) {\n    repository(name: $repoName, owner: $repoOwner) {\n        pullRequest(number: $prNumber) {\n            mergeCommit {\n                message\n                messageBody\n                messageBodyHTML\n            }\n        }\n    }\n}";
 
 var lastReleaseQuery = "query GetLastReleaseQuery($repoName: String!, $repoOwner: String!) {\n    repository(name: $repoName, owner: $repoOwner) {\n        latestRelease {\n            tag {\n                id\n                name\n                prefix\n            }\n        }\n    }\n}";
@@ -8793,6 +8814,14 @@ const start = async () => {
             ...repoDetails
         });
         console.log('LatestReleaseQueryResponse', JSON.stringify(latestRelease, null, '\t'));
+        const latestVersion = latestRelease.repository.latestRelease.tag.name;
+        const nextVersion = bump((latestVersion || 'v0'), 'patch');
+        const releaseResult = await octokit.rest.release.create({
+            repo: repoDetails.repoName,
+            owner: repoDetails.repoOwner,
+            tag_name: core.getInput('tag_prefix') + nextVersion
+        });
+        console.log('releaseResult', releaseResult);
     }
     catch (error) {
         core.setFailed(error.message);

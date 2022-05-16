@@ -52,7 +52,8 @@ const start = async () => {
         const latestVersion = latestRelease.repository.latestRelease.tag.name
         const nextVersion = bump((latestVersion || 'v0') as string, 'patch')
         const releaseResult = await octokit.rest.release.create({
-            ...repoDetails,
+            repo: repoDetails.repoName,
+            owner: repoDetails.repoOwner,
             tag_name: core.getInput('tag_prefix') + nextVersion
 
         })
