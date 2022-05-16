@@ -1,3 +1,5 @@
+import bump from "./bump";
+
 const core = require('@actions/core')
 const github = require('@actions/github');
 
@@ -35,6 +37,7 @@ const repoDetails = {
 const start = async () => {
     try {
         const octokit = github.getOctokit(core.getInput('github_token'))
+
         const commitMessage: CommitMessageQueryResponse = await octokit.graphql(commitMessageQuery, {
             ...repoDetails,
             prNumber: github.context.payload.pull_request?.number
@@ -46,10 +49,17 @@ const start = async () => {
         })
         console.log('LatestReleaseQueryResponse', JSON.stringify(latestRelease, null, '\t'))
 
+        const latestVersion = latestRelease.repository.latestRelease.tag.name
+        const nextVersion = bump((latestVersion || 'v0') as string, 'patch')
+        octokit.rest.release.create({
+            ...repoDetails,
+            tag_name: core.getInput('tag_prefix') + nextVersion
 
+        })
     } catch (error: any) {
         core.setFailed(error.message);
     }
+
 }
 
 start()
