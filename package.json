@@ -8,7 +8,9 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "rollup --config ./rollup.config.js ./src/index.ts --file dist/index.js --format cjs",
+    "build": "yarn inline-queries; yarn bundle",
+    "inline-queries": "rollup --config ./rollup.config.js ./src/index.ts --file dist/interrim-index.js --format cjs",
+    "bundle": "ncc build dist/interrim-index.js; rm dist/interrim-index.js",
     "dev": "",
     "codegen": "apollo client:codegen gen/queries.d.ts"
   },
