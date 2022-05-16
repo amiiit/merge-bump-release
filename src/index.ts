@@ -51,11 +51,12 @@ const start = async () => {
 
         const latestVersion = latestRelease.repository.latestRelease.tag.name
         const nextVersion = bump((latestVersion || 'v0') as string, 'patch')
-        octokit.rest.release.create({
+        const releaseResult = await octokit.rest.release.create({
             ...repoDetails,
             tag_name: core.getInput('tag_prefix') + nextVersion
 
         })
+        console.log('releaseResult', releaseResult)
     } catch (error: any) {
         core.setFailed(error.message);
     }
