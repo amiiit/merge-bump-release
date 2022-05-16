@@ -5,6 +5,7 @@ on:
     types:
       - closed
 
+
 jobs:
   release:
     name: PR
@@ -14,6 +15,6 @@ jobs:
         with:
           fetch-depth: 0
       - name: Run action
-        uses: amiiit/merge-bump-release@v0.1.21
+        uses: amiiit/merge-bump-release@v0.1.23
         with:
           github_token: ${{ secrets.GITHUB_TOKEN  }}
