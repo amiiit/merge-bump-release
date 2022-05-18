@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Run action
-        uses: amiiit/merge-bump-release@v0.1.27
+        uses: amiiit/merge-bump-release@v0.1.28
         with:
           github_token: ${{ secrets.GITHUB_TOKEN  }}
           tag_prefix: 'v'
