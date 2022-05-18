@@ -4,10 +4,20 @@ inputs:
   github_token:
     description: 'Secret GitHub token'
     required: true
+  tag_prefix:
+    description: 'A prefix to add to the tag, defaults to "v"'
+    required: false
+    default: 'v'
+  bump:
+    description: 'Bump type to determine which part of the SemVer will be increased. Can be one of: minor/major/patch. Will default to patch, unless other mechanisms of determining these were defined'
+    required: false
+  infer_bump_from_commit:
+    description: 'If set to true, looks for major, minor, patch in the commit in order to determine the bump.'
+    required: false
 
 outputs:
-  nextVersion: # id of output
-    description: 'The next version'
+  next_version: # id of output
+    description: 'The next version name (including the prefix)'
 runs:
   using: 'node16'
   main: 'dist/index.js'
