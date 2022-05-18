@@ -8792,7 +8792,7 @@ const bump = (version, bump) => {
     return parts.join('.');
 };
 
-var commitMessageQuery = "query GetCommitMessageFromRepository($repoName: String!, $repoOwner: String!, $prNumber: Int!) {\n    repository(name: $repoName, owner: $repoOwner) {\n        pullRequest(number: $prNumber) {\n            mergeCommit {\n                message\n                messageBody\n                messageBodyHTML\n            }\n        }\n    }\n}";
+var commitMessageQuery = "query GetCommitMessageFromRepository($repoName: String!, $repoOwner: String!, $prNumber: Int!) {\n    repository(name: $repoName, owner: $repoOwner) {\n        pullRequest(number: $prNumber) {\n            mergeCommit {\n                message\n                messageBody\n                messageHeadline\n            }\n        }\n    }\n}";
 
 var lastReleaseQuery = "query GetLastReleaseQuery($repoName: String!, $repoOwner: String!) {\n    repository(name: $repoName, owner: $repoOwner) {\n        latestRelease {\n            tag {\n                id\n                name\n                prefix\n            }\n        }\n    }\n}";
 
@@ -8822,7 +8822,7 @@ const start = async () => {
             owner: repoDetails.repoOwner,
             tag_name: nextReleaseTag,
             target_commitish: 'main',
-            name: commitMessage.repository.pullRequest.mergeCommit.message,
+            name: commitMessage.repository.pullRequest.mergeCommit.messageHeadline,
             body: commitMessage.repository.pullRequest.mergeCommit.messageBody,
             draft: false,
             prerelease: false,
