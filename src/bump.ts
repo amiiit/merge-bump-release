@@ -1,6 +1,8 @@
-type Bump = 'major' | 'minor' | 'patch';
+import {CommitMessageQueryResponse, MergeCommit} from "./QueryTypes";
 
-const bump = (version: string, bump: Bump) => {
+export type Bump = 'major' | 'minor' | 'patch';
+
+export const bump = (version: string, bump: Bump) => {
     const cleanVersionMatcher = version.match(/.*(\d+\.\d+\.\d+).*/);
     if (cleanVersionMatcher == null || cleanVersionMatcher[1] === null) {
         throw new Error(`invalid semver: ${version}`)
@@ -19,4 +21,35 @@ const bump = (version: string, bump: Bump) => {
     return parts.join('.');
 };
 
-export default bump;
+type DetermineBumpTypeOptions = {
+    inputBump: string,
+    inferBumpFromCommit: boolean
+}
+
+const inferBumpFromCommit = (commit: MergeCommit): Bump => {
+    const firstWordMatch = /(\w+)\b.*/.exec(commit.messageHeadline)
+    if (firstWordMatch) {
+        const firstWord = firstWordMatch[1].toLowerCase()
+        if (BUMPS.includes(firstWord)) {
+            return firstWord as Bump
+        }
+    }
+    return 'patch'
+}
+
+const BUMPS: string[] = ['patch','minor','major']
+export const determineBumpType = (commit: MergeCommit, options: DetermineBumpTypeOptions): Bump => {
+    if (options.inputBump) {
+        if (!BUMPS.includes(options.inputBump.toLowerCase() as Bump)) {
+            throw `provided input to bump: "${options.inputBump}", must be one of patch, minor, major.`
+        } else {
+            return options.inputBump.toLowerCase() as Bump
+        }
+    }
+
+    if (options.inferBumpFromCommit) {
+        return inferBumpFromCommit(commit)
+    }
+
+    return 'patch'
+}

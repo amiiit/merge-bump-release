@@ -1,4 +1,4 @@
-import bump from './bump'
+import {bump} from './bump'
 
 describe('bump', () => {
     it('bump minor', () => {
@@ -10,4 +10,5 @@ describe('bump', () => {
         expect(bump('v1.2.3--alpha3', 'minor')).toEqual('1.3.0')
         expect(bump('v1.2', 'patch')).toThrow('invalid semver: v1.2')
     })
+
 })
