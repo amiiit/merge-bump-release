@@ -12,7 +12,7 @@ type CommitMessageQueryResponse = {
             mergeCommit: {
                 message: string
                 messageBody: string
-                messageBodyHTML: string
+                messageHeadline: string
             }
         }
     }
@@ -58,7 +58,7 @@ const start = async () => {
             owner: repoDetails.repoOwner,
             tag_name: nextReleaseTag,
             target_commitish: 'main',
-            name: commitMessage.repository.pullRequest.mergeCommit.message,
+            name: commitMessage.repository.pullRequest.mergeCommit.messageHeadline,
             body: commitMessage.repository.pullRequest.mergeCommit.messageBody,
             draft: false,
             prerelease: false,
