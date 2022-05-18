@@ -51,12 +51,20 @@ const start = async () => {
 
         const latestVersion = latestRelease.repository.latestRelease.tag.name
         const nextVersion = bump((latestVersion || 'v0') as string, 'patch')
-        const releaseResult = await octokit.rest.release.create({
+        const nextReleaseTag = core.getInput('tag_prefix') + nextVersion
+
+        const releaseResult  = await octokit.request('POST /repos/{owner}/{repo}/releases', {
             repo: repoDetails.repoName,
             owner: repoDetails.repoOwner,
-            tag_name: core.getInput('tag_prefix') + nextVersion
-
+            tag_name: nextReleaseTag,
+            target_commitish: 'main',
+            name: commitMessage.repository.pullRequest.mergeCommit.message,
+            body: commitMessage.repository.pullRequest.mergeCommit.messageBody,
+            draft: false,
+            prerelease: false,
+            generate_release_notes: false
         })
+
         console.log('releaseResult', releaseResult)
     } catch (error: any) {
         core.setFailed(error.message);
