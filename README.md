@@ -20,7 +20,7 @@ the way it's configured.
 
 ## Options
 
-Please refer to [`action.yml`] in this repository to see all available options.
+Please refer to [`action.yml`](./action.yml) in this repository to see all available options.
 
 ## Contributing
 
