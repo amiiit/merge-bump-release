@@ -7,7 +7,7 @@ inputs:
   tag_prefix:
     description: 'A prefix to add to the tag, defaults to "v"'
     required: false
-    default: 'v'
+    default: ''
   bump:
     description: 'Bump type to determine which part of the SemVer will be increased. Can be one of: minor/major/patch. Will default to patch, unless other mechanisms of determining these were defined'
     required: false
