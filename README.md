@@ -18,6 +18,10 @@ the way it's configured.
 
 **If provided with `infer_bump_from_commit: true`** as input it will try to guess the right one depending on the commit message. Right now the logic is a commit header that starts with the words _'patch', 'minor' or 'major'_.
 
+## Options
+
+Please refer to [`action.yml`] in this repository to see all available options.
+
 ## Contributing
 
 If you need more features, please submit an issue or a pull request.
