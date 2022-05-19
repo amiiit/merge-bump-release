@@ -8842,7 +8842,7 @@ const start = async () => {
             inputBump: core.getInput('bump'),
             inferBumpFromCommit: core.getInput('infer_bump_from_commit')
         });
-        const nextVersion = bump((latestVersion || 'v0'), bumpType);
+        const nextVersion = bump((latestVersion || '0'), bumpType);
         const nextReleaseTag = core.getInput('tag_prefix') + nextVersion;
         core.setOutput('next_version', nextReleaseTag);
         const releaseResult = await octokit.request('POST /repos/{owner}/{repo}/releases', {
