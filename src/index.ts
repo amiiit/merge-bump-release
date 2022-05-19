@@ -31,7 +31,7 @@ const start = async () => {
             inputBump: core.getInput('bump'),
             inferBumpFromCommit: core.getInput('infer_bump_from_commit')
         })
-        const nextVersion = bump((latestVersion || 'v0') as string, bumpType)
+        const nextVersion = bump((latestVersion || '0') as string, bumpType)
 
         const nextReleaseTag = core.getInput('tag_prefix') + nextVersion
         core.setOutput('next_version', nextReleaseTag)
