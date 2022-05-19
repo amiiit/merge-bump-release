@@ -8791,8 +8791,33 @@ const bump = (version, bump) => {
     }
     return parts.join('.');
 };
+const inferBumpFromCommit = (commit) => {
+    const firstWordMatch = /(\w+)\b.*/.exec(commit.messageHeadline);
+    if (firstWordMatch) {
+        const firstWord = firstWordMatch[1].toLowerCase();
+        if (BUMPS.includes(firstWord)) {
+            return firstWord;
+        }
+    }
+    return 'patch';
+};
+const BUMPS = ['patch', 'minor', 'major'];
+const determineBumpType = (commit, options) => {
+    if (options.inputBump) {
+        if (!BUMPS.includes(options.inputBump.toLowerCase())) {
+            throw `provided input to bump: "${options.inputBump}", must be one of patch, minor, major.`;
+        }
+        else {
+            return options.inputBump.toLowerCase();
+        }
+    }
+    if (options.inferBumpFromCommit) {
+        return inferBumpFromCommit(commit);
+    }
+    return 'patch';
+};
 
-var commitMessageQuery = "query GetCommitMessageFromRepository($repoName: String!, $repoOwner: String!, $prNumber: Int!) {\n    repository(name: $repoName, owner: $repoOwner) {\n        pullRequest(number: $prNumber) {\n            mergeCommit {\n                message\n                messageBody\n                messageHeadline\n            }\n        }\n    }\n}";
+var commitMessageQuery = "query GetCommitMessageFromRepository($repoName: String!, $repoOwner: String!, $prNumber: Int!) {\n    repository(name: $repoName, owner: $repoOwner) {\n        pullRequest(number: $prNumber) {\n            mergeCommit {\n                messageBody\n                messageHeadline\n            }\n        }\n    }\n}";
 
 var lastReleaseQuery = "query GetLastReleaseQuery($repoName: String!, $repoOwner: String!) {\n    repository(name: $repoName, owner: $repoOwner) {\n        latestRelease {\n            tag {\n                id\n                name\n                prefix\n            }\n        }\n    }\n}";
 
@@ -8809,14 +8834,17 @@ const start = async () => {
             ...repoDetails,
             prNumber: github.context.payload.pull_request?.number
         });
-        console.log('commit message from gql', JSON.stringify(commitMessage, null, '\t'));
         const latestRelease = await octokit.graphql(lastReleaseQuery, {
             ...repoDetails
         });
-        console.log('LatestReleaseQueryResponse', JSON.stringify(latestRelease, null, '\t'));
         const latestVersion = latestRelease.repository.latestRelease.tag.name;
-        const nextVersion = bump((latestVersion || 'v0'), 'patch');
+        const bumpType = determineBumpType(commitMessage.repository.pullRequest.mergeCommit, {
+            inputBump: core.getInput('bump'),
+            inferBumpFromCommit: core.getInput('infer_bump_from_commit')
+        });
+        const nextVersion = bump((latestVersion || 'v0'), bumpType);
         const nextReleaseTag = core.getInput('tag_prefix') + nextVersion;
+        core.setOutput('next_version', nextReleaseTag);
         const releaseResult = await octokit.request('POST /repos/{owner}/{repo}/releases', {
             repo: repoDetails.repoName,
             owner: repoDetails.repoOwner,

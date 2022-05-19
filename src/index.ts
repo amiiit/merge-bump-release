@@ -27,7 +27,7 @@ const start = async () => {
 
         const latestVersion = latestRelease.repository.latestRelease.tag.name
 
-        const bumpType: Bump = determineBumpType(commitMessage, {
+        const bumpType: Bump = determineBumpType(commitMessage.repository.pullRequest.mergeCommit, {
             inputBump: core.getInput('bump'),
             inferBumpFromCommit: core.getInput('infer_bump_from_commit')
         })
