@@ -3,7 +3,7 @@ import {CommitMessageQueryResponse, MergeCommit} from "./QueryTypes";
 export type Bump = 'major' | 'minor' | 'patch';
 
 export const bump = (version: string, bump: Bump) => {
-    const cleanVersionMatcher = version.match(/.*(\d+\.\d+\.\d+).*/);
+    const cleanVersionMatcher = version.match(/[^\d]*((\d+)\.(\d+)\.(\d+)).*/);
     if (cleanVersionMatcher == null || cleanVersionMatcher[1] === null) {
         throw new Error(`invalid semver: ${version}`)
     }
