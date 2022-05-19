@@ -8772,7 +8772,7 @@ var __webpack_exports__ = {};
 
 
 const bump = (version, bump) => {
-    const cleanVersionMatcher = version.match(/.*(\d+\.\d+\.\d+).*/);
+    const cleanVersionMatcher = version.match(/[^\d]*((\d+)\.(\d+)\.(\d+)).*/);
     if (cleanVersionMatcher == null || cleanVersionMatcher[1] === null) {
         throw new Error(`invalid semver: ${version}`);
     }
