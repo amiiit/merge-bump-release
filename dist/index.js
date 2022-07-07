@@ -8837,7 +8837,7 @@ const start = async () => {
         const latestRelease = await octokit.graphql(lastReleaseQuery, {
             ...repoDetails
         });
-        const latestVersion = latestRelease.repository.latestRelease.tag.name;
+        const latestVersion = latestRelease.repository.latestRelease?.tag.name;
         const bumpType = determineBumpType(commitMessage.repository.pullRequest.mergeCommit, {
             inputBump: core.getInput('bump'),
             inferBumpFromCommit: core.getInput('infer_bump_from_commit')
