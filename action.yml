@@ -20,6 +20,8 @@ outputs:
     description: 'The next version name (including the prefix)'
   release:
     description: Release object of the created release (if succeeded). See https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28#create-a-release
+  assets_upload_url:
+    description: Upload URL for the release assets in the form of 'https://uploads.github.com/repos/<ORG_NAME>/<REPO_NAME>/releases/<RELEASE_ID>/assets
 runs:
   using: 'node16'
   main: 'dist/index.js'

@@ -51,8 +51,12 @@ const start = async () => {
         if (400 <= releaseResult.status) {
             throw new Error("cannot create release");
         }
-        
-        core.setOutput('release', JSON.stringify(releaseResult.data))
+
+        const release = releaseResult.data
+        const uploadURL = release.upload_url.replace(/{.*}/,'')
+
+        core.setOutput('release', JSON.stringify(release))
+        core.setOutput('assets_upload_url', uploadURL)
 
         console.log('releaseResult', releaseResult)
     } catch (error: any) {
