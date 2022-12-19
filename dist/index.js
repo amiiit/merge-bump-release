@@ -8856,6 +8856,10 @@ const start = async () => {
             prerelease: false,
             generate_release_notes: false
         });
+        if (400 <= releaseResult.status) {
+            throw new Error("cannot create release");
+        }
+        core.setOutput('release', JSON.stringify(releaseResult.data));
         console.log('releaseResult', releaseResult);
     }
     catch (error) {
