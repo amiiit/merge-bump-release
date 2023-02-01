@@ -8860,8 +8860,10 @@ const start = async () => {
             throw new Error("cannot create release");
         }
         const release = releaseResult.data;
+        const tagName = release.tag_name;
         const uploadURL = release.upload_url.replace(/{.*}/, '');
         core.setOutput('release', JSON.stringify(release));
+        core.setOutput('tag_name', tagName);
         core.setOutput('assets_upload_url', uploadURL);
         console.log('releaseResult', releaseResult);
     }
